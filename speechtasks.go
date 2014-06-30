@@ -6,40 +6,14 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"mime"
 	"net/http"
-	"os/exec"
+	"os"
 	"path/filepath"
-	"runtime"
 	"strconv"
 )
-
-var (
-	port  int
-)
-
-func browser(url string) error {
-	var commands = map[string]string{
-		"windows": "start",
-		"darwin":  "open",
-		"linux":   "xdg-open",
-	}
-	run, ok := commands[runtime.GOOS]
-	if !ok {
-		return fmt.Errorf("don't know how to open things on %s platform", runtime.GOOS)
-	}
-	cmd := exec.Command(run, url)
-	return cmd.Start()
-}
-
-func init() {
-	flag.IntVar(&port, "port", 8080, "port to run the server")
-	flag.Parse()
-	browser("http://0.0.0.0:" + strconv.Itoa(port) + "/index.html")
-}
 
 func loadPage(filename string) ([]byte, string, error) {
 	body, err := ioutil.ReadFile(filename)
@@ -59,7 +33,11 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	println("Server start on port ", port)
 	http.HandleFunc("/", viewHandler)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	if err != nil {
+		panic(err)
+	}
 }
