@@ -1,1 +1,1 @@
-web: serv
+web: speechtasks
