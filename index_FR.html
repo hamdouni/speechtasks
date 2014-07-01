@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Speech Tasks - voice drived tasks manager</title>
+	<title>Speech Tasks - application de gestion de tâches pilotée par la voix</title>
 	<style type="text/css">
 	body {font-family:sans;}
 	ul.list {margin:0; padding:0;}
@@ -56,39 +56,39 @@
 	    
 	    // annyang speech recognition
 	    var commands = {
-	        'add *term': function(term) {
+	        'tâche *term': function(term) {
 	            scope.title=term;
 	            scope.add();
 	            scope.$scan();
 	        },
-	        'remove last': function() {
+	        'annuler': function() {
 	            scope.remove();
 	            scope.$scan();
 	        },
-	        'remove all': function() {
+	        'supprimer tout': function() {
 	            scope.empty();
 	            scope.$scan();
 	        }
 	    };
 	    annyang.debug();
-	    annyang.setLanguage('en-UK');
+	    annyang.setLanguage('fr-FR');
 	    annyang.addCommands(commands);
 	    annyang.start();
 	}
 	</script>
 </head>
 <body>
-	<div><a href="index_FR.html">version française</a></div>
+	<div><a href="index.html">english version</a></div>
 	<h1>Speech Tasks !</h1>
-	<h2>Locally Stored Speech Recognition Todo</h2>
+	<h2>application de gestion de tâches pilotée par la voix</h2>
 	<blockquote>
-	    <p>Don't forget to authorized your micro access by your browser.</p>
+	    <p>N'oubliez pas d'autoriser l'application à accéder à votre micro lorsque le navigateur vous posera la question.</p>
 	    <p>
-	        You can say :
+	        Vous pouvez dire :
 	        <ul>
-	            <li><strong>add</strong> "the task you want"</li>
-	            <li><strong>remove last</strong></li>
-	            <li><strong>remove all</strong></li>
+	            <li><strong>tâche</strong> "ne pas oublier le pain"</li>
+	            <li><strong>annuler</strong></li>
+	            <li><strong>supprimer tout</strong></li>
 	        </ul>
 	    </p>
 	</blockquote>
